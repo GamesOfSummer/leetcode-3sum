@@ -16,18 +16,22 @@ function threeSum(array: Array<number>): any {
     let left = 0;
     let right = 0;
 
-    for (let i = 0; i < array.length; i++) {
-        if (i !== 0 && i + 1 < array.length && array[i] === array[i - 1]) {
-            i++;
+    for (let target = 0; target < array.length; target++) {
+        while (
+            target !== 0 &&
+            target + 1 < array.length &&
+            array[target] === array[target - 1]
+        ) {
+            target++;
         }
 
-        left = i + 1;
+        left = target + 1;
         right = array.length - 1;
 
         while (left < right) {
-            const sum = array[i] + array[left] + array[right];
+            const sum = array[target] + array[left] + array[right];
             if (sum === 0) {
-                triplets.push([array[i], array[left], array[right]]);
+                triplets.push([array[target], array[left], array[right]]);
 
                 left++;
                 while (array[left] === array[left - 1] && left < right) {
