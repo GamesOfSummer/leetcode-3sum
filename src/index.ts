@@ -13,7 +13,6 @@ function threeSum(array: number[][]): any {
     array = array.sort((a, b) => a[0] - b[0]);
 
     let queue: number[][] = [];
-
     queue.push(array[0]);
 
     for (let i = 1; i < array.length; i++) {
@@ -26,17 +25,8 @@ function threeSum(array: number[][]): any {
             }
             queue.push([previousX, Math.max(previousY, currentY)]);
         } else {
-            queue.push([previousX, currentY]);
+            queue.push([previousX, previousY], [currentX, currentY]);
         }
-
-        // for dup arrays entries
-        // if (finalArray.length > 1) {
-        //     let [finalX, finalY] = finalArray[finalArray.length - 1];
-
-        //     if (x === finalX && y === finalY) {
-        //         finalArray.pop();
-        //     }
-        // }
     }
 
     return queue;
