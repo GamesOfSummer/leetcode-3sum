@@ -22,7 +22,10 @@ function threeSum(array: number[][]): any {
         let [x, y] = queue.pop();
         let [x2, y2] = array[i];
 
-        if (y >= x2) {
+        if (x < x2 && y > y2) {
+            finalArray.push([x, y]);
+            i++;
+        } else if (y >= x2) {
             if (i === 1) {
                 finalArray = [];
             }
@@ -32,12 +35,28 @@ function threeSum(array: number[][]): any {
         }
 
         queue.push(array[i]);
+
+        if (finalArray.length > 0) {
+            let [finalX, finalY] = finalArray[finalArray.length - 1];
+
+            if (x === finalX && y === finalY) {
+                finalArray.pop();
+            }
+        }
     }
 
     return finalArray;
 }
 
 consoleStart();
+
+validateFxn(
+    threeSum([
+        [1, 4],
+        [2, 3],
+    ]),
+    [[1, 4]]
+);
 
 validateFxn(
     threeSum([
