@@ -12,40 +12,34 @@ function threeSum(array: number[][]): any {
 
     array = array.sort((a, b) => a[0] - b[0]);
 
-    let finalArray: number[][] = [];
-
     let queue: number[][] = [];
 
     queue.push(array[0]);
-    finalArray.push(array[0]);
+
     for (let i = 1; i < array.length; i++) {
-        let [x, y] = queue.pop();
-        let [x2, y2] = array[i];
+        let [previousX, previousY] = queue.pop();
+        let [currentX, currentY] = array[i];
 
-        if (x < x2 && y > y2) {
-            finalArray.push([x, y]);
-            i++;
-        } else if (y >= x2) {
+        if (previousY >= currentX) {
             if (i === 1) {
-                finalArray = [];
+                queue = [];
             }
-            finalArray.push([x, y2]);
+            queue.push([previousX, Math.max(previousY, currentY)]);
         } else {
-            finalArray.push([x2, y2]);
+            queue.push([previousX, currentY]);
         }
 
-        queue.push(array[i]);
+        // for dup arrays entries
+        // if (finalArray.length > 1) {
+        //     let [finalX, finalY] = finalArray[finalArray.length - 1];
 
-        if (finalArray.length > 0) {
-            let [finalX, finalY] = finalArray[finalArray.length - 1];
-
-            if (x === finalX && y === finalY) {
-                finalArray.pop();
-            }
-        }
+        //     if (x === finalX && y === finalY) {
+        //         finalArray.pop();
+        //     }
+        // }
     }
 
-    return finalArray;
+    return queue;
 }
 
 consoleStart();
@@ -53,9 +47,18 @@ consoleStart();
 validateFxn(
     threeSum([
         [1, 4],
+        [0, 2],
+        [3, 5],
+    ]),
+    [0, 5]
+);
+
+validateFxn(
+    threeSum([
+        [1, 4],
         [2, 3],
     ]),
-    [[1, 4]]
+    [1, 4]
 );
 
 validateFxn(
@@ -74,7 +77,7 @@ validateFxn(
         [1, 4],
         [4, 5],
     ]),
-    [[[1, 5]]]
+    [1, 5]
 );
 
 validateFxn(
