@@ -6,8 +6,8 @@ import {
 } from './helpers.js';
 
 function threeSum(array: number[][]): any {
-    if (array.length < 1) {
-        return [];
+    if (array.length <= 1) {
+        return array;
     }
 
     array = array.sort((a, b) => a[0] - b[0]);
@@ -17,12 +17,18 @@ function threeSum(array: number[][]): any {
     let queue: number[][] = [];
 
     queue.push(array[0]);
+    finalArray.push(array[0]);
     for (let i = 1; i < array.length; i++) {
         let [x, y] = queue.pop();
         let [x2, y2] = array[i];
 
-        if (y > x2) {
+        if (y >= x2) {
+            if (i === 1) {
+                finalArray = [];
+            }
             finalArray.push([x, y2]);
+        } else {
+            finalArray.push([x2, y2]);
         }
 
         queue.push(array[i]);
@@ -33,7 +39,25 @@ function threeSum(array: number[][]): any {
 
 consoleStart();
 
-// -1, -1, 0, 1, 2, -4
+validateFxn(
+    threeSum([
+        [1, 4],
+        [5, 6],
+    ]),
+    [
+        [1, 4],
+        [5, 6],
+    ]
+);
+
+validateFxn(
+    threeSum([
+        [1, 4],
+        [4, 5],
+    ]),
+    [[[1, 5]]]
+);
+
 validateFxn(
     threeSum([
         [1, 3],
