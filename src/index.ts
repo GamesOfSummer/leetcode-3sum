@@ -5,7 +5,7 @@ import {
     validateFxn,
 } from './helpers.js';
 
-function threeSum(array: any): any {
+function threeSum(array: number[][]): any {
     if (array.length < 1) {
         return [];
     }
@@ -14,9 +14,9 @@ function threeSum(array: any): any {
 
     let finalArray: number[][] = [];
 
-    let queue = [];
+    let queue: number[][] = [];
 
-    queue.push[array[0]];
+    queue.push(array[0]);
     for (let i = 1; i < array.length; i++) {
         let [x, y] = queue.pop();
         let [x2, y2] = array[i];
